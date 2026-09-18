@@ -33,7 +33,7 @@ function createTextParticles() {
   sampleContext.fillText('TIWARI', width / 2, height * .57);
   const pixels = sampleContext.getImageData(0, 0, width, height).data;
   const targets = [];
-  const gap = width < 600 ? 3 : 4;
+  const gap = width < 600 ? 4 : 5;
   for (let y = 0; y < height; y += gap) {
     for (let x = 0; x < width; x += gap) {
       if (pixels[(y * width + x) * 4 + 3] > 100) targets.push({ x, y });
@@ -45,8 +45,8 @@ function createTextParticles() {
     targetX: target.x,
     targetY: target.y,
     size: Math.random() * 2.1 + 1,
-    color: index % 9 === 0 ? '#d95743' : index % 17 === 0 ? '#536bd6' : '#273044',
-    speed: Math.random() * .045 + .075,
+    color: index % 23 === 0 ? '#d95743' : '#11110f',
+    speed: Math.random() * .035 + .09,
     phase: Math.random() * Math.PI * 2
   }));
 }
@@ -69,8 +69,7 @@ function drawParticles(time) {
     particle.y += (particle.targetY + repelY - particle.y) * particle.speed;
     const shimmer = Math.sin(time * .0028 + particle.phase) * .18;
     context.globalAlpha = .88 + shimmer;
-    context.shadowBlur = 5;
-    context.shadowColor = particle.color;
+    context.shadowBlur = 0;
     context.fillStyle = particle.color;
     context.beginPath();
     context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
