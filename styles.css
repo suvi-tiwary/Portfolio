@@ -93,3 +93,14 @@ a { color: inherit; text-decoration: none; }
 .vibely-word { position: absolute; bottom: 20px; left: 20px; font-size: clamp(48px, 7vw, 82px); line-height: .8; letter-spacing: -.1em; font-weight: 700; }
 .project-card:nth-child(5) .project-visual { height: 360px; }
 @media (max-width: 800px) { .project-card:nth-child(5) .project-visual { height: 330px; } }
+
+.visual-course { color: var(--ink); }
+.course-doc { position: absolute; z-index: 1; width: 34%; aspect-ratio: 1 / 1.15; padding: 18px; background: var(--paper); border: 1px solid var(--ink); box-shadow: 8px 8px 0 rgba(17,17,15,.22); font: 10px/1.2 var(--mono); letter-spacing: .06em; }
+.doc-one { left: 17%; top: 22%; transform: rotate(-8deg); }
+.doc-two { right: 17%; top: 29%; transform: rotate(8deg); background: var(--acid); }
+.course-doc strong { display: block; margin-top: 18px; font: 700 clamp(38px, 5vw, 68px)/.8 var(--display); letter-spacing: -.1em; }
+.course-prompt { position: absolute; z-index: 2; left: 17%; right: 17%; bottom: 16%; padding: 13px 15px; background: var(--ink); color: var(--paper); font: 11px var(--mono); letter-spacing: .02em; box-shadow: 5px 5px 0 var(--coral); }
+.social-links { display: flex; align-items: center; gap: 14px; color: var(--ink); }
+.social-link { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--ink); border-radius: 50%; transition: color .25s ease, background .25s ease, transform .25s ease; }
+.social-link svg { width: 17px; height: 17px; fill: currentColor; }
+.social-link:hover { color: var(--paper); background: var(--ink); transform: translateY(-3px); }
