@@ -6,6 +6,7 @@ let particles = [];
 let animationFrame;
 let width = 0;
 let height = 0;
+let formationStart = 0;
 
 function resizeCanvas() {
   const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -42,6 +43,8 @@ function createTextParticles() {
   particles = targets.map((target, index) => ({
     x: Math.random() * width,
     y: Math.random() * height,
+    originX: 0,
+    originY: 0,
     targetX: target.x,
     targetY: target.y,
     size: Math.random() * 2.1 + 1,
@@ -49,12 +52,23 @@ function createTextParticles() {
     speed: Math.random() * .035 + .09,
     phase: Math.random() * Math.PI * 2
   }));
+  particles.forEach((particle) => {
+    particle.originX = particle.x;
+    particle.originY = particle.y;
+  });
+  formationStart = performance.now();
 }
 
 function drawParticles(time) {
   context.clearRect(0, 0, width, height);
   const radius = width < 600 ? 75 : 110;
+  const formationProgress = Math.min((performance.now() - formationStart) / 3000, 1);
+  const formationEase = 1 - Math.pow(1 - formationProgress, 3);
   particles.forEach((particle) => {
+    if (formationProgress < 1) {
+      particle.x = particle.originX + (particle.targetX - particle.originX) * formationEase;
+      particle.y = particle.originY + (particle.targetY - particle.originY) * formationEase;
+    }
     const distanceX = pointer.x - particle.x;
     const distanceY = pointer.y - particle.y;
     const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
@@ -65,8 +79,10 @@ function drawParticles(time) {
       repelX = -(distanceX / (distance || 1)) * force * 25;
       repelY = -(distanceY / (distance || 1)) * force * 25;
     }
-    particle.x += (particle.targetX + repelX - particle.x) * particle.speed;
-    particle.y += (particle.targetY + repelY - particle.y) * particle.speed;
+    if (formationProgress >= 1) {
+      particle.x += (particle.targetX + repelX - particle.x) * particle.speed;
+      particle.y += (particle.targetY + repelY - particle.y) * particle.speed;
+    }
     const shimmer = Math.sin(time * .0028 + particle.phase) * .18;
     context.globalAlpha = .88 + shimmer;
     context.shadowBlur = 0;
