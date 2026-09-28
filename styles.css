@@ -114,5 +114,4 @@ a { color: inherit; text-decoration: none; }
 .trip-stop { position: absolute; width: 17px; height: 17px; border: 3px solid var(--paper); border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 2px var(--ink); }
 .trip-start { left: 24%; bottom: 23%; }
 .trip-end { right: 24%; top: 19%; background: var(--acid); }
-.trip-word { position: absolute; left: 20px; bottom: 20px; font-size: clamp(36px, 5vw, 58px); line-height: .82; font-weight: 700; letter-spacing: -.08em; }
 .social-link:hover { color: var(--paper); background: var(--ink); transform: translateY(-3px); }
